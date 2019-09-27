@@ -2,8 +2,11 @@
  #include <AsyncTCP.h>
  #include <ESPAsyncWebServer.h>
  #include "index.h"
+// #include "SSD1306.h"
 
-int var = 123;
+ //SSD1306 display(0x3c, 4, 15);
+
+String mensagem ;
 
 const char* PARAM_INPUT_1 = "texto";
 
@@ -28,16 +31,17 @@ Serial.println(server.arg("text"));
 
 void setup(){
 Serial.begin(115200);
-
+display.init();
 Serial.println();
 Serial.printf("Configurando ponto de acesso '%s'n", ssid);
 WiFi.mode(WIFI_MODE_APSTA);
 WiFi.softAP(ssid,senha);
-WiFi.begin(rede, senha1);
+/*WiFi.begin(rede, senha1);
 while (WiFi.status() != WL_CONNECTED) {
   delay(500);
   Serial.println("Conectando ao Wifi");
  }
+ */
  Serial.println("Wifi Conectado");
  server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
     request->send_P(200, "text/html",MAIN_page);
@@ -50,18 +54,18 @@ while (WiFi.status() != WL_CONNECTED) {
     if (request->hasParam(PARAM_INPUT_1)) {
       inputMessage = request->getParam(PARAM_INPUT_1)->value();
       inputParam = PARAM_INPUT_1;
+      mensagem = inputMessage;
     }
-   }
+   });
   
-Serial.println(inputMessage);
 server.begin();
-
+//display.drawString(0, 0, mensagem);
+//display.display();
 }
 
 void loop(void){
-server.handleClient();
 Serial.println(WiFi.softAPIP());
-Serial.println(inputMessage);
-delay(1);
+Serial.println(mensagem);
+delay(2000);
 
 }

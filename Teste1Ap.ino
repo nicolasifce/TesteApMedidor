@@ -6,9 +6,11 @@
 
  //SSD1306 display(0x3c, 4, 15);
 
-String mensagem ;
+String rede ;
+String senha_wifi;
 
-const char* PARAM_INPUT_1 = "texto";
+const char* PARAM_INPUT_1 = "rede";
+const char* PARAM_INPUT_2 = "senha_wifi";
 
 const char* rede = "TELECENTRO";
 const char* senha1 = "12#$56qwidear";
@@ -31,7 +33,7 @@ Serial.println(server.arg("text"));
 
 void setup(){
 Serial.begin(115200);
-display.init();
+//display.init();
 Serial.println();
 Serial.printf("Configurando ponto de acesso '%s'n", ssid);
 WiFi.mode(WIFI_MODE_APSTA);
@@ -54,8 +56,14 @@ while (WiFi.status() != WL_CONNECTED) {
     if (request->hasParam(PARAM_INPUT_1)) {
       inputMessage = request->getParam(PARAM_INPUT_1)->value();
       inputParam = PARAM_INPUT_1;
-      mensagem = inputMessage;
+      rede = inputMessage;
     }
+    if (request->hasParam(PARAM_INPUT_2)) {
+      inputMessage = request->getParam(PARAM_INPUT_2)->value();
+      inputParam = PARAM_INPUT_1;
+      senha_wifi = inputMessage;
+    }
+    
    });
   
 server.begin();
@@ -65,7 +73,8 @@ server.begin();
 
 void loop(void){
 Serial.println(WiFi.softAPIP());
-Serial.println(mensagem);
-delay(2000);
+Serial.println(rede);
+Serial.println(senha_wifi);
+delay(5000);
 
 }

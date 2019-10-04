@@ -6,7 +6,7 @@ const char MAIN_page[] PROGMEM = R"=====(
 <title>Controle Restaurantes e Bares</title>
 </head>
 <body style="background-color:#708090">  
-<div style="margin-left: 30%;margin-right:35% ;height:30em;background-color: #FFF;padding-top: 20px;border-top: 20px solid #4682b4 " >
+<div style="margin-left: 30%;margin-right:35% ;height:30em;background-color: #FFF;padding-top: 20px;border-top: 20px solid #4682b4;border-radius:5px; " >
 <div style="margin:20%;text-align: center;border:0px ;  " >
 <form action="/get">
 <h2>Rede:</h2>
